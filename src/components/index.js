@@ -7,3 +7,5 @@ export { default as LabResultsCard } from "./LabResultsCard";
 export { default as CalendarBlock } from "./CalendarBlock";
 export { default as FormatBadge } from "./FormatBadge";
 export { default as ManagerChat } from "./ManagerChat";
+export { default as DashboardFilters } from "./DashboardFilters";
+export { default as AddPatientButton } from "./AddPatientButton";

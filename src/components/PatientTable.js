@@ -8,10 +8,12 @@ import {
   IconButton,
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { AddPatientButton } from "./index";
 
 export default function PatientTable({ patients, FormatBadge, cardVariants }) {
   return (
     <Paper elevation={2} sx={{ p: 3, borderRadius: 4 }}>
+      <AddPatientButton />
       <Box
         sx={{
           display: "flex",

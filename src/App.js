@@ -11,6 +11,7 @@ import {
   CalendarBlock,
   FormatBadge,
   ManagerChat,
+  DashboardFilters,
 } from "./components";
 
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -132,104 +133,79 @@ const hoverEffect = {
 
 export default function App() {
   const [date, setDate] = React.useState(new Date(2025, 2, 18));
+  const [selectedFilter, setSelectedFilter] = React.useState("patients");
 
   return (
     <Box sx={{ display: "flex", minHeight: "100vh", bgcolor: "#e6eef7" }}>
       <CssBaseline />
       <Sidebar menuItems={menuItems} />
-      <Box component="main" sx={{ flexGrow: 1, p: 4, pl: 0, ml: "150px" }}>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, p: 4, pl: 0, ml: "150px", height: "100vh" }}
+      >
         <Box
           sx={{
-            display: "grid",
-            gridTemplateColumns: "1.1fr 1.1fr 0.9fr",
-            gridTemplateRows: "120px 1.2fr 1.5fr",
-            gridTemplateAreas: `
-              "patients appointments lab"
-              "diagnoses diagnoses chat"
-              "table table calendar"
-            `,
-            gap: 3,
-            minHeight: "calc(100vh - 64px)",
+            display: "flex",
+            alignItems: "flex-start",
+            gap: 4,
+            height: "100%",
           }}
         >
-          <motion.div
-            variants={cardVariants}
-            initial="hidden"
-            animate="visible"
-            custom={1}
-            {...hoverEffect}
-            style={{ borderRadius: 16, gridArea: "patients" }}
-          >
-            <StatsCard
-              title="Пациенты"
-              value={47}
-              caption={
-                <>
-                  За 7 дней <span style={{ color: "#4caf50" }}>+18.1%</span>
-                </>
-              }
+          {/* Центральная область */}
+          <Box sx={{ flex: 1, height: "100%" }}>
+            <DashboardFilters
+              selected={selectedFilter}
+              onChange={setSelectedFilter}
             />
-          </motion.div>
-          <motion.div
-            variants={cardVariants}
-            initial="hidden"
-            animate="visible"
-            custom={2}
-            {...hoverEffect}
-            style={{ borderRadius: 16, gridArea: "appointments" }}
+            <Box
+              sx={{
+                background: "#fff",
+                borderRadius: 4,
+                height: "calc(100% - 56px)", // 56px — примерная высота фильтров
+                boxShadow: "0 2px 12px 0 rgba(165,200,247,0.10)",
+                p: 3,
+                overflow: "auto",
+              }}
+            >
+              {selectedFilter === "patients" && (
+                <PatientTable patients={patients} FormatBadge={FormatBadge} />
+              )}
+              {selectedFilter === "calendar" && (
+                <CalendarBlock
+                  date={date}
+                  setDate={setDate}
+                  calendarStats={calendarStats}
+                />
+              )}
+              {selectedFilter === "orders" && (
+                <OrdersTable orders={orders} FormatBadge={FormatBadge} />
+              )}
+            </Box>
+          </Box>
+          {/* Правая колонка */}
+          <Box
+            sx={{
+              width: 340,
+              display: "flex",
+              flexDirection: "column",
+              gap: 3,
+              height: "100%",
+            }}
           >
-            <StatsCard
-              title="Приёмы"
-              value={44}
-              caption={
-                <>
-                  За 7 дней <span style={{ color: "#4caf50" }}>+12.5%</span>
-                </>
-              }
-            />
-          </motion.div>
-          <motion.div
-            variants={cardVariants}
-            initial="hidden"
-            animate="visible"
-            custom={3}
-            {...hoverEffect}
-            style={{ borderRadius: 16, gridArea: "lab" }}
-          >
-            <LabResultsCard fileName="M_Reynolds_CBD.pdf" />
-          </motion.div>
-          <motion.div
-            variants={cardVariants}
-            initial="hidden"
-            animate="visible"
-            custom={4}
-            {...hoverEffect}
-            style={{ borderRadius: 16, gridArea: "diagnoses" }}
-          >
-            <OrdersTable orders={orders} FormatBadge={FormatBadge} />
-          </motion.div>
-          <motion.div
-            variants={cardVariants}
-            initial="hidden"
-            animate="visible"
-            custom={5}
-            {...hoverEffect}
-            style={{ borderRadius: 16, gridArea: "chat", background: "#fff" }}
-          >
-            {/*   <ConsultationRequests request={consultationRequest} /> */}
+            <LabResultsCard />
             <ManagerChat
               name="Олег Нагаев"
               avatarUrl="https://randomuser.me/api/portraits/men/36.jpg"
             />
-          </motion.div>
-          <Box sx={{ gridArea: "table", mt: 0 }}>
-            <PatientTable patients={patients} FormatBadge={FormatBadge} />
-          </Box>
-          <Box sx={{ gridArea: "calendar", mt: 0 }}>
-            <CalendarBlock
-              date={date}
-              setDate={setDate}
-              calendarStats={calendarStats}
+            <StatsCard
+              title="Общее кол-во пациентов"
+              value={47}
+              caption={null}
+            />
+            <StatsCard
+              title="Общее кол-во запланированных операций"
+              value={12}
+              caption={null}
             />
           </Box>
         </Box>
