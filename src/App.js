@@ -136,7 +136,7 @@ export default function App() {
     <Box sx={{ display: "flex", minHeight: "100vh", bgcolor: "#e6eef7" }}>
       <CssBaseline />
       <Sidebar menuItems={menuItems} />
-      <Box component="main" sx={{ flexGrow: 1, p: 4, pl: 0 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 4, pl: 0, ml: "150px" }}>
         <Box
           sx={{
             display: "grid",
