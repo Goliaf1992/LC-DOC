@@ -12,6 +12,8 @@ import {
   FormatBadge,
   ManagerChat,
   DashboardFilters,
+  AddPatientButton,
+  OperationSchedule,
 } from "./components";
 
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -131,6 +133,24 @@ const hoverEffect = {
   whileHover: { scale: 1.03, boxShadow: "0 6px 24px 0 rgba(165,200,247,0.18)" },
 };
 
+// Пример данных для расписания операций
+const allSchedules = {
+  "2025-03-18": [
+    { time: "09:00", name: "Анна Кузнецова" },
+    { time: "11:00", name: "Екатерина Смирнова" },
+    { time: "15:00", name: "Тимур Давыдов" },
+  ],
+  "2025-03-19": [
+    { time: "10:00", name: "Ольга Морозова" },
+    { time: "13:00", name: "Андрей Соколов" },
+  ],
+};
+
+function getScheduleForDate(date) {
+  const key = date.toISOString().slice(0, 10);
+  return allSchedules[key] || [];
+}
+
 export default function App() {
   const [date, setDate] = React.useState(new Date(2025, 2, 18));
   const [selectedFilter, setSelectedFilter] = React.useState("patients");
@@ -171,10 +191,10 @@ export default function App() {
                 <PatientTable patients={patients} FormatBadge={FormatBadge} />
               )}
               {selectedFilter === "calendar" && (
-                <CalendarBlock
+                <OperationSchedule
                   date={date}
                   setDate={setDate}
-                  calendarStats={calendarStats}
+                  schedule={getScheduleForDate(date)}
                 />
               )}
               {selectedFilter === "orders" && (

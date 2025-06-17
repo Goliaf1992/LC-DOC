@@ -9,3 +9,4 @@ export { default as FormatBadge } from "./FormatBadge";
 export { default as ManagerChat } from "./ManagerChat";
 export { default as DashboardFilters } from "./DashboardFilters";
 export { default as AddPatientButton } from "./AddPatientButton";
+export { default as OperationSchedule } from "./OperationSchedule";
