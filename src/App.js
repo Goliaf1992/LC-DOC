@@ -14,6 +14,7 @@ import {
   DashboardFilters,
   AddPatientButton,
   OperationSchedule,
+  StatsSparkline,
 } from "./components";
 
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -154,6 +155,63 @@ function getScheduleForDate(date) {
 export default function App() {
   const [date, setDate] = React.useState(new Date(2025, 2, 18));
   const [selectedFilter, setSelectedFilter] = React.useState("patients");
+  const [patients, setPatients] = React.useState([
+    {
+      name: "Анна Кузнецова",
+      date: "18.03.2025",
+      time: "09:00 - 10:00",
+      format: "Онлайн",
+      avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+    },
+    {
+      name: "Екатерина Смирнова",
+      date: "18.03.2025",
+      time: "11:00 - 12:00",
+      format: "В клинике",
+      avatar: "https://randomuser.me/api/portraits/women/65.jpg",
+    },
+    {
+      name: "Ольга Морозова",
+      date: "18.03.2025",
+      time: "12:00 - 13:00",
+      format: "В клинике",
+      avatar: "https://randomuser.me/api/portraits/women/68.jpg",
+    },
+    {
+      name: "Тимур Давыдов",
+      date: "18.03.2025",
+      time: "15:00 - 15:30",
+      format: "Онлайн",
+      avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+    },
+    {
+      name: "Андрей Соколов",
+      date: "18.03.2025",
+      time: "15:30 - 16:00",
+      format: "В клинике",
+      avatar: "https://randomuser.me/api/portraits/men/45.jpg",
+    },
+  ]);
+
+  // Добавление пациента
+  const handleAddPatient = (patient) => {
+    setPatients((prev) => [
+      ...prev,
+      {
+        name: `${patient.firstName} ${patient.lastName}`,
+        date: "-",
+        time: "-",
+        format: "-",
+        avatar: "https://randomuser.me/api/portraits/lego/1.jpg", // дефолтный аватар
+        ...patient,
+      },
+    ]);
+  };
+
+  // Удаление пациента
+  const handleDeletePatient = (patient) => {
+    setPatients((prev) => prev.filter((p) => p.name !== patient.name));
+  };
 
   return (
     <Box sx={{ display: "flex", minHeight: "100vh", bgcolor: "#e6eef7" }}>
@@ -188,7 +246,12 @@ export default function App() {
               }}
             >
               {selectedFilter === "patients" && (
-                <PatientTable patients={patients} FormatBadge={FormatBadge} />
+                <PatientTable
+                  patients={patients}
+                  FormatBadge={FormatBadge}
+                  onAddPatient={handleAddPatient}
+                  onDeletePatient={handleDeletePatient}
+                />
               )}
               {selectedFilter === "calendar" && (
                 <OperationSchedule
@@ -220,12 +283,12 @@ export default function App() {
             <StatsCard
               title="Общее кол-во пациентов"
               value={47}
-              caption={null}
+              caption={<StatsSparkline />}
             />
             <StatsCard
               title="Общее кол-во запланированных операций"
               value={12}
-              caption={null}
+              caption={<StatsSparkline color="#4caf50" />}
             />
           </Box>
         </Box>

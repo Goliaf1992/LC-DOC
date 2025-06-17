@@ -10,3 +10,6 @@ export { default as ManagerChat } from "./ManagerChat";
 export { default as DashboardFilters } from "./DashboardFilters";
 export { default as AddPatientButton } from "./AddPatientButton";
 export { default as OperationSchedule } from "./OperationSchedule";
+export { default as ManualPatientForm } from "./ManualPatientForm";
+export { default as PatientActionsMenu } from "./PatientActionsMenu";
+export { default as StatsSparkline } from "./StatsSparkline";

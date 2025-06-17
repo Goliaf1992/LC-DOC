@@ -1,19 +1,17 @@
 import React from "react";
-import {
-  Paper,
-  Typography,
-  Box,
-  Divider,
-  Avatar,
-  IconButton,
-} from "@mui/material";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { AddPatientButton } from "./index";
+import { Paper, Typography, Box, Divider, Avatar } from "@mui/material";
+import { AddPatientButton, PatientActionsMenu } from "./index";
 
-export default function PatientTable({ patients, FormatBadge, cardVariants }) {
+export default function PatientTable({
+  patients,
+  FormatBadge,
+  cardVariants,
+  onAddPatient,
+  onDeletePatient,
+}) {
   return (
     <Paper elevation={2} sx={{ p: 3, borderRadius: 4 }}>
-      <AddPatientButton />
+      <AddPatientButton onManual={onAddPatient} />
       <Box
         sx={{
           display: "flex",
@@ -73,9 +71,12 @@ export default function PatientTable({ patients, FormatBadge, cardVariants }) {
           <Box sx={{ width: 100 }}>
             <FormatBadge format={p.format} />
           </Box>
-          <IconButton size="small">
-            <MoreVertIcon />
-          </IconButton>
+          <PatientActionsMenu
+            onDelete={() => onDeletePatient && onDeletePatient(p)}
+            onViewStudies={() => alert("Смотреть исследования")}
+            onAssignOperation={() => alert("Назначить операцию")}
+            onViewMedCard={() => alert("Медкарта")}
+          />
         </Box>
       ))}
     </Paper>

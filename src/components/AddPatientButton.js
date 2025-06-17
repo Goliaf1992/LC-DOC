@@ -7,20 +7,28 @@ import {
   DialogActions,
   Box,
 } from "@mui/material";
+import { ManualPatientForm } from "./index";
 
 export default function AddPatientButton({ onManual, onExcel }) {
   const [open, setOpen] = React.useState(false);
+  const [manualOpen, setManualOpen] = React.useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const handleManual = () => {
     setOpen(false);
-    if (onManual) onManual();
+    setManualOpen(true);
   };
   const handleExcel = () => {
     setOpen(false);
     if (onExcel) onExcel();
+  };
+
+  const handleManualClose = () => setManualOpen(false);
+  const handleManualSave = (data) => {
+    if (onManual) onManual(data);
+    setManualOpen(false);
   };
 
   return (
@@ -59,6 +67,11 @@ export default function AddPatientButton({ onManual, onExcel }) {
           </Button>
         </DialogActions>
       </Dialog>
+      <ManualPatientForm
+        open={manualOpen}
+        onClose={handleManualClose}
+        onSave={handleManualSave}
+      />
     </Box>
   );
 }

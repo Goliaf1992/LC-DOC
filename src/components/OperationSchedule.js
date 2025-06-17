@@ -11,6 +11,7 @@ import {
   Divider,
 } from "@mui/material";
 import CalendarBlock from "./CalendarBlock";
+import { AddPatientButton } from "./index";
 
 export default function OperationSchedule({ date, setDate, schedule }) {
   // schedule: [{ time: '09:00', name: 'Иванов Иван' }, ...]
@@ -26,9 +27,19 @@ export default function OperationSchedule({ date, setDate, schedule }) {
       </Box>
       {/* Таблица расписания справа */}
       <Box sx={{ flex: 1, pl: 4 }}>
-        <Typography variant="h6" fontWeight={700} mb={2}>
-          Расписание на {date.toLocaleDateString("ru-RU")}
-        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            mb: 2,
+          }}
+        >
+          <Typography variant="h6" fontWeight={700}>
+            Расписание на {date.toLocaleDateString("ru-RU")}
+          </Typography>
+          <AddPatientButton />
+        </Box>
         <Divider sx={{ mb: 2 }} />
         <Table size="small">
           <TableHead>

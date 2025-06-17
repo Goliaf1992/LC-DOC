@@ -1,10 +1,42 @@
 import React from "react";
-import { Paper, Typography, Box, Divider, IconButton } from "@mui/material";
+import {
+  Paper,
+  Typography,
+  Box,
+  Divider,
+  IconButton,
+  Button,
+} from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 export default function OrdersTable({ orders, FormatBadge, cardVariants }) {
+  const handleOrderAligners = () => {
+    alert("Заказ элайнеров!");
+  };
+  const handleOrderSurgicalGuide = () => {
+    alert("Заказ хирургического шаблона!");
+  };
+
   return (
     <Paper elevation={2} sx={{ p: 3, borderRadius: 4, height: "100%" }}>
+      <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2, gap: 2 }}>
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{ borderRadius: 3, fontWeight: 700, px: 3, py: 1, fontSize: 15 }}
+          onClick={handleOrderAligners}
+        >
+          Заказать элайнеры
+        </Button>
+        <Button
+          variant="contained"
+          color="secondary"
+          sx={{ borderRadius: 3, fontWeight: 700, px: 3, py: 1, fontSize: 15 }}
+          onClick={handleOrderSurgicalGuide}
+        >
+          Заказать хирургический шаблон
+        </Button>
+      </Box>
       <Typography variant="subtitle2" color="text.secondary">
         Заказанные услуги
       </Typography>
