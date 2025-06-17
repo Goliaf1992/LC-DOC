@@ -9,7 +9,12 @@ import {
   ListItemText,
   Paper,
   Avatar,
+  IconButton,
+  Divider,
+  Badge,
 } from "@mui/material";
+import SettingsIcon from "@mui/icons-material/Settings";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 const drawerWidth = 260;
 
@@ -24,7 +29,7 @@ export default function Sidebar({ menuItems }) {
           width: drawerWidth,
           boxSizing: "border-box",
           bgcolor: "#23272e",
-          color: "#fff",
+          color: "#ffffff",
           borderRadius: "36px",
           m: 2,
           boxShadow: "0 8px 32px 0 rgba(35,39,46,0.10)",
@@ -39,7 +44,7 @@ export default function Sidebar({ menuItems }) {
         <List>
           {menuItems.map((item, idx) => (
             <ListItem
-              button
+              component="button"
               key={item.text}
               sx={{
                 bgcolor: idx === 0 ? "#a5c8f7" : "transparent",
@@ -49,15 +54,36 @@ export default function Sidebar({ menuItems }) {
                 boxShadow:
                   idx === 0 ? "0 2px 12px 0 rgba(165,200,247,0.18)" : "none",
                 fontWeight: idx === 0 ? 700 : 500,
+                border: "none",
                 transition: "box-shadow 0.3s, background 0.3s, color 0.3s",
                 "&:hover": {
                   bgcolor: "#a5c8f7",
                   color: "#23272e",
                   boxShadow: "0 2px 12px 0 rgba(165,200,247,0.18)",
+                  border: "none",
                 },
               }}
             >
-              <ListItemIcon sx={{ color: "inherit" }}>{item.icon}</ListItemIcon>
+              <ListItemIcon sx={{ color: "inherit" }}>
+                {item.text === "Чаты" ? (
+                  <Badge
+                    badgeContent={3}
+                    color="error"
+                    sx={{
+                      "& .MuiBadge-badge": {
+                        right: -3,
+                        top: 3,
+                        border: "2px solid #23272e",
+                        padding: "0 4px",
+                      },
+                    }}
+                  >
+                    {item.icon}
+                  </Badge>
+                ) : (
+                  item.icon
+                )}
+              </ListItemIcon>
               <ListItemText primary={item.text} />
             </ListItem>
           ))}
@@ -78,22 +104,37 @@ export default function Sidebar({ menuItems }) {
             transition: "box-shadow 0.3s, background 0.3s",
           }}
         >
-          <Avatar
-            src="https://randomuser.me/api/portraits/women/50.jpg"
-            sx={{
-              width: 60,
-              height: 60,
-              mr: 2,
-              borderRadius: 3,
-              boxShadow: "0 2px 8px 0 rgba(165,200,247,0.18)",
-              transition: "box-shadow 0.3s",
-            }}
-          />
-          <Box>
-            <Typography fontWeight={600}>Dr. Elizabeth White</Typography>
-            <Typography variant="body2" color="text.secondary">
-              Врач-терапевт (ГП)
-            </Typography>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
+            <Avatar
+              src="https://randomuser.me/api/portraits/women/44.jpg"
+              sx={{ width: 48, height: 48 }}
+            />
+            <Box sx={{ flexGrow: 1 }}>
+              <Typography fontWeight={600}>Ольга Иванова</Typography>
+              <Typography variant="body2" color="text.secondary">
+                Врач-ортодонт
+              </Typography>
+            </Box>
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+              <IconButton
+                size="small"
+                sx={{
+                  color: "text.secondary",
+                  "&:hover": { color: "primary.main" },
+                }}
+              >
+                <SettingsIcon />
+              </IconButton>
+              <IconButton
+                size="small"
+                sx={{
+                  color: "text.secondary",
+                  "&:hover": { color: "error.main" },
+                }}
+              >
+                <ExitToAppIcon />
+              </IconButton>
+            </Box>
           </Box>
         </Paper>
       </Box>

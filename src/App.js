@@ -10,6 +10,7 @@ import {
   LabResultsCard,
   CalendarBlock,
   FormatBadge,
+  ManagerChat,
 } from "./components";
 
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -73,7 +74,7 @@ const orders = [
     name: "Заказ 1",
     date: "18.03.2025",
     time: "09:00 - 10:00",
-    format: "Онлайн",
+    format: "В пути",
   },
   {
     name: "Заказ 2",
@@ -91,7 +92,7 @@ const orders = [
     name: "Заказ 4",
     date: "18.03.2025",
     time: "15:00 - 15:30",
-    format: "Онлайн",
+    format: "В пути",
   },
   {
     name: "Заказ 5",
@@ -106,7 +107,7 @@ const consultationRequest = {
   age: 21,
   format: "Онлайн",
   avatar: "https://randomuser.me/api/portraits/men/36.jpg",
-  note: "Жалуется на сильные головные боли в течение последней недели.",
+  note: "Жалуется на боль в ВНЧС.",
   date: "18.03.2025",
   time: "16:00 - 17:00",
 };
@@ -144,7 +145,7 @@ export default function App() {
             gridTemplateRows: "120px 1.2fr 1.5fr",
             gridTemplateAreas: `
               "patients appointments lab"
-              "diagnoses diagnoses consult"
+              "diagnoses diagnoses chat"
               "table table calendar"
             `,
             gap: 3,
@@ -213,9 +214,13 @@ export default function App() {
             animate="visible"
             custom={5}
             {...hoverEffect}
-            style={{ borderRadius: 16, gridArea: "consult" }}
+            style={{ borderRadius: 16, gridArea: "chat", background: "#fff" }}
           >
-            <ConsultationRequests request={consultationRequest} />
+            {/*   <ConsultationRequests request={consultationRequest} /> */}
+            <ManagerChat
+              name="Олег Нагаев"
+              avatarUrl="https://randomuser.me/api/portraits/men/36.jpg"
+            />
           </motion.div>
           <Box sx={{ gridArea: "table", mt: 0 }}>
             <PatientTable patients={patients} FormatBadge={FormatBadge} />
