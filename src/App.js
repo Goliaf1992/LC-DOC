@@ -37,44 +37,44 @@ const menuItems = [
 
 const patients = [
   {
-    name: "Анна Кузнецова",
-    date: "18.03.2025",
-    time: "09:00 - 10:00",
-    format: "Онлайн",
-    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+    id: 1,
+    name: "Анна Петрова",
     phone: "+7 (999) 123-45-67",
-  },
-  {
-    name: "Екатерина Смирнова",
-    date: "18.03.2025",
-    time: "11:00 - 12:00",
-    format: "В клинике",
-    avatar: "https://randomuser.me/api/portraits/women/65.jpg",
-    phone: "+7 (999) 234-56-78",
-  },
-  {
-    name: "Ольга Морозова",
-    date: "18.03.2025",
-    time: "12:00 - 13:00",
-    format: "В клинике",
-    avatar: "https://randomuser.me/api/portraits/women/68.jpg",
-    phone: "+7 (999) 345-67-89",
-  },
-  {
-    name: "Тимур Давыдов",
-    date: "18.03.2025",
-    time: "15:00 - 15:30",
     format: "Онлайн",
-    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
-    phone: "+7 (999) 456-78-90",
+    avatar:
+      "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&h=150&fit=crop&crop=face",
   },
   {
-    name: "Андрей Соколов",
-    date: "18.03.2025",
-    time: "15:30 - 16:00",
+    id: 2,
+    name: "Мария Сидорова",
+    phone: "+7 (999) 234-56-78",
     format: "В клинике",
-    avatar: "https://randomuser.me/api/portraits/men/45.jpg",
+    avatar:
+      "https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=150&h=150&fit=crop&crop=face",
+  },
+  {
+    id: 3,
+    name: "Елена Козлова",
+    phone: "+7 (999) 345-67-89",
+    format: "Онлайн",
+    avatar:
+      "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
+  },
+  {
+    id: 4,
+    name: "Дмитрий Иванов",
+    phone: "+7 (999) 456-78-90",
+    format: "В клинике",
+    avatar:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+  },
+  {
+    id: 5,
+    name: "Алексей Смирнов",
     phone: "+7 (999) 567-89-01",
+    format: "Онлайн",
+    avatar:
+      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
   },
 ];
 
@@ -158,44 +158,44 @@ export default function App() {
   const [schedules, setSchedules] = React.useState(initialSchedules);
   const [patients, setPatients] = React.useState([
     {
-      name: "Анна Кузнецова",
-      date: "18.03.2025",
-      time: "09:00 - 10:00",
-      format: "Онлайн",
-      avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+      id: 1,
+      name: "Анна Петрова",
       phone: "+7 (999) 123-45-67",
-    },
-    {
-      name: "Екатерина Смирнова",
-      date: "18.03.2025",
-      time: "11:00 - 12:00",
-      format: "В клинике",
-      avatar: "https://randomuser.me/api/portraits/women/65.jpg",
-      phone: "+7 (999) 234-56-78",
-    },
-    {
-      name: "Ольга Морозова",
-      date: "18.03.2025",
-      time: "12:00 - 13:00",
-      format: "В клинике",
-      avatar: "https://randomuser.me/api/portraits/women/68.jpg",
-      phone: "+7 (999) 345-67-89",
-    },
-    {
-      name: "Тимур Давыдов",
-      date: "18.03.2025",
-      time: "15:00 - 15:30",
       format: "Онлайн",
-      avatar: "https://randomuser.me/api/portraits/men/32.jpg",
-      phone: "+7 (999) 456-78-90",
+      avatar:
+        "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&h=150&fit=crop&crop=face",
     },
     {
-      name: "Андрей Соколов",
-      date: "18.03.2025",
-      time: "15:30 - 16:00",
+      id: 2,
+      name: "Мария Сидорова",
+      phone: "+7 (999) 234-56-78",
       format: "В клинике",
-      avatar: "https://randomuser.me/api/portraits/men/45.jpg",
+      avatar:
+        "https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=150&h=150&fit=crop&crop=face",
+    },
+    {
+      id: 3,
+      name: "Елена Козлова",
+      phone: "+7 (999) 345-67-89",
+      format: "Онлайн",
+      avatar:
+        "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
+    },
+    {
+      id: 4,
+      name: "Дмитрий Иванов",
+      phone: "+7 (999) 456-78-90",
+      format: "В клинике",
+      avatar:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+    },
+    {
+      id: 5,
+      name: "Алексей Смирнов",
       phone: "+7 (999) 567-89-01",
+      format: "Онлайн",
+      avatar:
+        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
     },
   ]);
 
@@ -347,7 +347,8 @@ export default function App() {
         date: "-",
         time: "-",
         format: "-",
-        avatar: "https://randomuser.me/api/portraits/lego/1.jpg", // дефолтный аватар
+        avatar:
+          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
         phone: patient.phone || "+7 (999) 000-00-00", // номер телефона по умолчанию
         ...patient,
       },
@@ -370,7 +371,8 @@ export default function App() {
           date: "-",
           time: "-",
           format: "-",
-          avatar: "https://randomuser.me/api/portraits/lego/1.jpg",
+          avatar:
+            "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
           phone: patient.phone || "+7 (999) 000-00-00",
           ...patient,
         },
@@ -466,7 +468,7 @@ export default function App() {
             <LabResultsCard />
             <ManagerChat
               name="Олег Нагаев"
-              avatarUrl="https://randomuser.me/api/portraits/men/36.jpg"
+              avatarUrl="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
               position="Менеджер Лаборатории"
             />
             <StatsCard

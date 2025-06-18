@@ -3,9 +3,14 @@ import {
   Paper,
   Typography,
   Box,
-  Divider,
-  IconButton,
   Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  IconButton,
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
@@ -37,72 +42,65 @@ export default function OrdersTable({ orders, FormatBadge, cardVariants }) {
           Заказать хирургический шаблон
         </Button>
       </Box>
-      <Typography variant="subtitle2" color="text.secondary">
+      <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 2 }}>
         Заказанные услуги
       </Typography>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          mb: 2,
-          px: 1,
-          bgcolor: "#f5f8fa",
-          borderRadius: 2,
-          boxShadow: "0 2px 8px 0 rgba(165,200,247,0.06)",
-        }}
-      >
-        <Typography
-          variant="subtitle2"
-          sx={{ width: 140, color: "#23272e", fontWeight: 700 }}
-        >
-          Название
-        </Typography>
-        <Typography
-          variant="subtitle2"
-          sx={{ width: 100, color: "#23272e", fontWeight: 700 }}
-        >
-          Дата
-        </Typography>
-        <Typography
-          variant="subtitle2"
-          sx={{ width: 110, color: "#23272e", fontWeight: 700 }}
-        >
-          Время
-        </Typography>
-        <Typography
-          variant="subtitle2"
-          sx={{ width: 100, color: "#23272e", fontWeight: 700 }}
-        >
-          Формат
-        </Typography>
-        <Box sx={{ width: 40 }} />
-      </Box>
-      <Divider sx={{ mb: 1 }} />
-      {orders.map((o, idx) => (
-        <Box
-          key={o.name}
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            mb: 2,
-            bgcolor: idx % 2 === 0 ? "#f5f8fa" : "transparent",
-            borderRadius: 2,
-            p: 1,
-            boxShadow: idx % 2 === 0 ? 1 : 0,
-          }}
-        >
-          <Typography sx={{ width: 140, fontWeight: 500 }}>{o.name}</Typography>
-          <Typography sx={{ width: 100 }}>{o.date}</Typography>
-          <Typography sx={{ width: 110 }}>{o.time}</Typography>
-          <Box sx={{ width: 100 }}>
-            <FormatBadge format={o.format} />
-          </Box>
-          <IconButton size="small">
-            <MoreVertIcon />
-          </IconButton>
-        </Box>
-      ))}
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow sx={{ background: "#f5f8fa" }}>
+              <TableCell sx={{ fontWeight: 700, width: 180 }}>
+                Название
+              </TableCell>
+              <TableCell
+                sx={{ fontWeight: 700, width: 100, textAlign: "center" }}
+              >
+                Дата
+              </TableCell>
+              <TableCell
+                sx={{ fontWeight: 700, width: 110, textAlign: "center" }}
+              >
+                Время
+              </TableCell>
+              <TableCell
+                sx={{ fontWeight: 700, width: 120, textAlign: "center" }}
+              >
+                Формат
+              </TableCell>
+              <TableCell sx={{ width: 40 }} />
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {orders.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={5} align="center">
+                  <Typography color="text.secondary">Нет заказов</Typography>
+                </TableCell>
+              </TableRow>
+            ) : (
+              orders.map((o, idx) => (
+                <TableRow
+                  key={o.name}
+                  hover
+                  sx={{ background: idx % 2 === 0 ? "#f5f8fa" : "#fff" }}
+                >
+                  <TableCell sx={{ fontWeight: 500 }}>{o.name}</TableCell>
+                  <TableCell align="center">{o.date || "-"}</TableCell>
+                  <TableCell align="center">{o.time || "-"}</TableCell>
+                  <TableCell align="center">
+                    <FormatBadge format={o.format} />
+                  </TableCell>
+                  <TableCell align="center">
+                    <IconButton size="small">
+                      <MoreVertIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Paper>
   );
 }

@@ -38,7 +38,7 @@ export default function Sidebar({ menuItems }) {
         },
       }}
     >
-      <Box sx={{ p: 3, pb: 1}}>
+      <Box sx={{ p: 3, pb: 1 }}>
         <Box sx={{ display: "flex", alignItems: "center", mb: 3, gap: 2 }}>
           <Logo width={40} height={39} sx={{ mr: 4 }} />
           <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -121,7 +121,7 @@ export default function Sidebar({ menuItems }) {
         >
           <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
             <Avatar
-              src="https://randomuser.me/api/portraits/women/44.jpg"
+              src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&h=150&fit=crop&crop=face"
               sx={{ width: 48, height: 48 }}
             />
             <Box sx={{ flexGrow: 1 }}>
