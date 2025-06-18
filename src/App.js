@@ -15,6 +15,7 @@ import {
   AddPatientButton,
   OperationSchedule,
   StatsSparkline,
+  ChangeOperationTimeForm,
 } from "./components";
 
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -156,6 +157,10 @@ export default function App() {
   const [date, setDate] = React.useState(new Date(2025, 2, 18));
   const [selectedFilter, setSelectedFilter] = React.useState("patients");
   const [schedules, setSchedules] = React.useState(initialSchedules);
+  const [assignOperationFormOpen, setAssignOperationFormOpen] =
+    React.useState(false);
+  const [selectedPatientForOperation, setSelectedPatientForOperation] =
+    React.useState(null);
   const [patients, setPatients] = React.useState([
     {
       id: 1,
@@ -396,6 +401,77 @@ export default function App() {
     setPatients((prev) => prev.filter((p) => p.name !== patient.name));
   };
 
+  // Назначение операции из таблицы пациентов
+  const handleAssignOperationFromTable = (patient, newDate, newTime) => {
+    console.log("handleAssignOperationFromTable called with:", {
+      patient: patient.name,
+      newDate: newDate.toISOString(),
+      newTime,
+    });
+
+    // Форматируем дату в YYYY-MM-DD
+    const newKey = `${newDate.getFullYear()}-${String(
+      newDate.getMonth() + 1
+    ).padStart(2, "0")}-${String(newDate.getDate()).padStart(2, "0")}`;
+
+    console.log("New schedule key:", newKey);
+
+    setSchedules((prev) => {
+      console.log("Current schedules:", prev);
+
+      // Проверяем, не добавлен ли уже пациент на эту дату
+      const existingPatient = prev[newKey]?.find(
+        (item) => item.name === patient.name
+      );
+      if (existingPatient) {
+        alert(`Пациент ${patient.name} уже добавлен в расписание на эту дату`);
+        return prev;
+      }
+
+      // Создаём новый объект расписания
+      const newSchedules = { ...prev };
+
+      // Добавляем в новое расписание
+      if (!newSchedules[newKey]) {
+        newSchedules[newKey] = [];
+      }
+
+      newSchedules[newKey] = [
+        ...newSchedules[newKey],
+        {
+          name: patient.name,
+          time: newTime,
+          phone: patient.phone,
+        },
+      ];
+
+      console.log("Updated schedules:", newSchedules);
+      return newSchedules;
+    });
+  };
+
+  // Открытие формы назначения операции
+  const handleOpenAssignOperationForm = (patient) => {
+    setSelectedPatientForOperation(patient);
+    setAssignOperationFormOpen(true);
+  };
+
+  // Сохранение назначения операции
+  const handleSaveAssignOperation = (formData) => {
+    if (selectedPatientForOperation) {
+      const [year, month, day] = formData.date.split("-").map(Number);
+      const newDate = new Date(year, month - 1, day);
+
+      handleAssignOperationFromTable(
+        selectedPatientForOperation,
+        newDate,
+        formData.time
+      );
+    }
+    setAssignOperationFormOpen(false);
+    setSelectedPatientForOperation(null);
+  };
+
   return (
     <Box sx={{ display: "flex", minHeight: "100vh", bgcolor: "#e6eef7" }}>
       <CssBaseline />
@@ -435,6 +511,7 @@ export default function App() {
                   onAddPatient={handleAddPatient}
                   onDeletePatient={handleDeletePatient}
                   onAddPatientToSchedule={handleAddPatientToSchedule}
+                  onAssignOperation={handleOpenAssignOperationForm}
                 />
               )}
               {selectedFilter === "calendar" && (
@@ -484,6 +561,17 @@ export default function App() {
           </Box>
         </Box>
       </Box>
+
+      {/* Форма назначения операции */}
+      <ChangeOperationTimeForm
+        open={assignOperationFormOpen}
+        onClose={() => setAssignOperationFormOpen(false)}
+        onSave={handleSaveAssignOperation}
+        currentDate={new Date().toISOString().slice(0, 10)}
+        currentTime="09:00"
+        patientName={selectedPatientForOperation?.name}
+        isAssignOperation={true}
+      />
     </Box>
   );
 }

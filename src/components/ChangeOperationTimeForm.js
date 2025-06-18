@@ -17,6 +17,7 @@ export default function ChangeOperationTimeForm({
   currentDate,
   currentTime,
   patientName,
+  isAssignOperation = false,
 }) {
   const [form, setForm] = React.useState({
     date: currentDate || new Date().toISOString().slice(0, 10),
@@ -47,7 +48,9 @@ export default function ChangeOperationTimeForm({
 
   return (
     <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
-      <DialogTitle>Изменить время операции</DialogTitle>
+      <DialogTitle>
+        {isAssignOperation ? "Назначить операцию" : "Изменить время операции"}
+      </DialogTitle>
       <DialogContent>
         <Box sx={{ display: "flex", flexDirection: "column", gap: 3, mt: 1 }}>
           <Typography variant="body2" color="text.secondary">

@@ -25,6 +25,7 @@ export default function PatientTable({
   onAddPatient,
   onDeletePatient,
   onAddPatientToSchedule,
+  onAssignOperation,
 }) {
   const [searchTerm, setSearchTerm] = React.useState("");
 
@@ -133,7 +134,9 @@ export default function PatientTable({
                     <PatientActionsMenu
                       onDelete={() => onDeletePatient && onDeletePatient(p)}
                       onViewStudies={() => alert("Смотреть исследования")}
-                      onAssignOperation={() => alert("Назначить операцию")}
+                      onAssignOperation={() =>
+                        onAssignOperation && onAssignOperation(p)
+                      }
                       onViewMedCard={() => alert("Медкарта")}
                       onWriteToPatient={() => {
                         if (p.phone) {
