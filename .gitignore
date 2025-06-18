@@ -1,5 +1,6 @@
 node_modules/
 build/
+summary.md
 .env
 .DS_Store
 *.log
