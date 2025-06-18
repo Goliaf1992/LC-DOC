@@ -28,7 +28,6 @@ import HelpIcon from "@mui/icons-material/Help";
 const menuItems = [
   { text: "Дашборд", icon: <DashboardIcon /> },
   { text: "Приёмы", icon: <EventIcon /> },
-  { text: "Пациенты", icon: <PeopleIcon /> },
   { text: "Чаты", icon: <ChatIcon /> },
   { text: "Аналитика", icon: <BarChartIcon /> },
   { text: "Платежи", icon: <PaymentIcon /> },
@@ -42,6 +41,7 @@ const patients = [
     time: "09:00 - 10:00",
     format: "Онлайн",
     avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+    phone: "+7 (999) 123-45-67",
   },
   {
     name: "Екатерина Смирнова",
@@ -49,6 +49,7 @@ const patients = [
     time: "11:00 - 12:00",
     format: "В клинике",
     avatar: "https://randomuser.me/api/portraits/women/65.jpg",
+    phone: "+7 (999) 234-56-78",
   },
   {
     name: "Ольга Морозова",
@@ -56,6 +57,7 @@ const patients = [
     time: "12:00 - 13:00",
     format: "В клинике",
     avatar: "https://randomuser.me/api/portraits/women/68.jpg",
+    phone: "+7 (999) 345-67-89",
   },
   {
     name: "Тимур Давыдов",
@@ -63,6 +65,7 @@ const patients = [
     time: "15:00 - 15:30",
     format: "Онлайн",
     avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+    phone: "+7 (999) 456-78-90",
   },
   {
     name: "Андрей Соколов",
@@ -70,6 +73,7 @@ const patients = [
     time: "15:30 - 16:00",
     format: "В клинике",
     avatar: "https://randomuser.me/api/portraits/men/45.jpg",
+    phone: "+7 (999) 567-89-01",
   },
 ];
 
@@ -135,26 +139,22 @@ const hoverEffect = {
 };
 
 // Пример данных для расписания операций
-const allSchedules = {
+const initialSchedules = {
   "2025-03-18": [
-    { time: "09:00", name: "Анна Кузнецова" },
-    { time: "11:00", name: "Екатерина Смирнова" },
-    { time: "15:00", name: "Тимур Давыдов" },
+    { time: "09:00", name: "Анна Кузнецова", phone: "+7 (999) 123-45-67" },
+    { time: "11:00", name: "Екатерина Смирнова", phone: "+7 (999) 234-56-78" },
+    { time: "15:00", name: "Тимур Давыдов", phone: "+7 (999) 456-78-90" },
   ],
   "2025-03-19": [
-    { time: "10:00", name: "Ольга Морозова" },
-    { time: "13:00", name: "Андрей Соколов" },
+    { time: "10:00", name: "Ольга Морозова", phone: "+7 (999) 345-67-89" },
+    { time: "13:00", name: "Андрей Соколов", phone: "+7 (999) 567-89-01" },
   ],
 };
-
-function getScheduleForDate(date) {
-  const key = date.toISOString().slice(0, 10);
-  return allSchedules[key] || [];
-}
 
 export default function App() {
   const [date, setDate] = React.useState(new Date(2025, 2, 18));
   const [selectedFilter, setSelectedFilter] = React.useState("patients");
+  const [schedules, setSchedules] = React.useState(initialSchedules);
   const [patients, setPatients] = React.useState([
     {
       name: "Анна Кузнецова",
@@ -162,6 +162,7 @@ export default function App() {
       time: "09:00 - 10:00",
       format: "Онлайн",
       avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+      phone: "+7 (999) 123-45-67",
     },
     {
       name: "Екатерина Смирнова",
@@ -169,6 +170,7 @@ export default function App() {
       time: "11:00 - 12:00",
       format: "В клинике",
       avatar: "https://randomuser.me/api/portraits/women/65.jpg",
+      phone: "+7 (999) 234-56-78",
     },
     {
       name: "Ольга Морозова",
@@ -176,6 +178,7 @@ export default function App() {
       time: "12:00 - 13:00",
       format: "В клинике",
       avatar: "https://randomuser.me/api/portraits/women/68.jpg",
+      phone: "+7 (999) 345-67-89",
     },
     {
       name: "Тимур Давыдов",
@@ -183,6 +186,7 @@ export default function App() {
       time: "15:00 - 15:30",
       format: "Онлайн",
       avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+      phone: "+7 (999) 456-78-90",
     },
     {
       name: "Андрей Соколов",
@@ -190,8 +194,118 @@ export default function App() {
       time: "15:30 - 16:00",
       format: "В клинике",
       avatar: "https://randomuser.me/api/portraits/men/45.jpg",
+      phone: "+7 (999) 567-89-01",
     },
   ]);
+
+  // Функция для получения расписания на определенную дату
+  const getScheduleForDate = (date) => {
+    const key = date.toISOString().slice(0, 10);
+    return schedules[key] || [];
+  };
+
+  // Функция для сортировки расписания по времени
+  const getSortedScheduleForDate = (date) => {
+    const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}-${String(date.getDate()).padStart(2, "0")}`;
+    const scheduleForDate = schedules[key] || [];
+    const sortedSchedule = scheduleForDate.sort((a, b) =>
+      a.time.localeCompare(b.time)
+    );
+
+    console.log("getSortedScheduleForDate:", {
+      date: date.toISOString(),
+      key,
+      scheduleForDate,
+      sortedSchedule,
+    });
+
+    return sortedSchedule;
+  };
+
+  // Отмена операции
+  const handleCancelOperation = (patientName, operationDate) => {
+    const key = `${operationDate.getFullYear()}-${String(
+      operationDate.getMonth() + 1
+    ).padStart(2, "0")}-${String(operationDate.getDate()).padStart(2, "0")}`;
+    setSchedules((prev) => ({
+      ...prev,
+      [key]: prev[key].filter((item) => item.name !== patientName),
+    }));
+  };
+
+  // Изменение времени операции
+  const handleChangeOperationTime = (
+    patientName,
+    oldDate,
+    newDate,
+    newTime
+  ) => {
+    console.log("handleChangeOperationTime called with:", {
+      patientName,
+      oldDate: oldDate.toISOString(),
+      newDate: newDate.toISOString(),
+      newTime,
+    });
+
+    // Форматируем даты в YYYY-MM-DD без учёта часового пояса
+    const oldKey = `${oldDate.getFullYear()}-${String(
+      oldDate.getMonth() + 1
+    ).padStart(2, "0")}-${String(oldDate.getDate()).padStart(2, "0")}`;
+    const newKey = `${newDate.getFullYear()}-${String(
+      newDate.getMonth() + 1
+    ).padStart(2, "0")}-${String(newDate.getDate()).padStart(2, "0")}`;
+
+    console.log("Keys:", { oldKey, newKey });
+
+    setSchedules((prev) => {
+      console.log("Current schedules:", prev);
+
+      // Находим пациента в старом расписании
+      const patient = prev[oldKey]?.find((item) => item.name === patientName);
+
+      console.log("Found patient:", patient);
+
+      if (!patient) {
+        console.log("Patient not found in old schedule");
+        return prev;
+      }
+
+      // Создаём новый объект расписания
+      const newSchedules = { ...prev };
+
+      // Удаляем из старого расписания
+      if (newSchedules[oldKey]) {
+        newSchedules[oldKey] = newSchedules[oldKey].filter(
+          (item) => item.name !== patientName
+        );
+      }
+
+      // Добавляем в новое расписание
+      if (!newSchedules[newKey]) {
+        newSchedules[newKey] = [];
+      }
+
+      newSchedules[newKey] = [
+        ...newSchedules[newKey],
+        { ...patient, time: newTime },
+      ];
+
+      console.log("Updated schedules:", newSchedules);
+      return newSchedules;
+    });
+  };
+
+  // Написать пациенту через WhatsApp
+  const handleWriteToPatientFromCalendar = (phone) => {
+    if (phone) {
+      const phoneNumber = phone.replace(/\D/g, "");
+      const whatsappUrl = `https://wa.me/${phoneNumber}`;
+      window.open(whatsappUrl, "_blank");
+    }
+  };
 
   // Добавление пациента
   const handleAddPatient = (patient) => {
@@ -203,6 +317,7 @@ export default function App() {
         time: "-",
         format: "-",
         avatar: "https://randomuser.me/api/portraits/lego/1.jpg", // дефолтный аватар
+        phone: patient.phone || "+7 (999) 000-00-00", // номер телефона по умолчанию
         ...patient,
       },
     ]);
@@ -257,7 +372,10 @@ export default function App() {
                 <OperationSchedule
                   date={date}
                   setDate={setDate}
-                  schedule={getScheduleForDate(date)}
+                  schedule={getSortedScheduleForDate(date)}
+                  onCancelOperation={handleCancelOperation}
+                  onChangeOperationTime={handleChangeOperationTime}
+                  onWriteToPatient={handleWriteToPatientFromCalendar}
                 />
               )}
               {selectedFilter === "orders" && (
@@ -279,6 +397,7 @@ export default function App() {
             <ManagerChat
               name="Олег Нагаев"
               avatarUrl="https://randomuser.me/api/portraits/men/36.jpg"
+              position="Менеджер Лаборатории"
             />
             <StatsCard
               title="Общее кол-во пациентов"

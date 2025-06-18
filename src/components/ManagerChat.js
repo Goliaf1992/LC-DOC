@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Avatar, Typography, Button, Paper } from "@mui/material";
 
-const ManagerChat = ({ name, avatarUrl, onMessageClick }) => {
+const ManagerChat = ({ name, avatarUrl, position = "", onMessageClick }) => {
   return (
     <Paper
       elevation={4}
@@ -44,10 +44,18 @@ const ManagerChat = ({ name, avatarUrl, onMessageClick }) => {
       </Box>
       <Typography
         fontWeight={700}
-        sx={{ mb: 2, fontSize: 24, textAlign: "center", letterSpacing: 0.2 }}
+        sx={{ mb: 0.5, fontSize: 24, textAlign: "center", letterSpacing: 0.2 }}
       >
         {name}
       </Typography>
+      {position && (
+        <Typography
+          variant="subtitle2"
+          sx={{ mb: 2, color: "#5da3ff", textAlign: "center", fontWeight: 500 }}
+        >
+          {position}
+        </Typography>
+      )}
       <Button
         variant="contained"
         sx={{

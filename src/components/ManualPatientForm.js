@@ -14,6 +14,7 @@ const initialForm = {
   lastName: "",
   birthDate: "",
   city: "",
+  phone: "",
 };
 
 export default function ManualPatientForm({ open, onClose, onSave }) {
@@ -72,6 +73,13 @@ export default function ManualPatientForm({ open, onClose, onSave }) {
             label="Город"
             name="city"
             value={form.city}
+            onChange={handleChange}
+            fullWidth
+          />
+          <TextField
+            label="Номер телефона"
+            name="phone"
+            value={form.phone}
             onChange={handleChange}
             fullWidth
           />

@@ -76,6 +76,14 @@ export default function PatientTable({
             onViewStudies={() => alert("Смотреть исследования")}
             onAssignOperation={() => alert("Назначить операцию")}
             onViewMedCard={() => alert("Медкарта")}
+            onWriteToPatient={() => {
+              if (p.phone) {
+                const phoneNumber = p.phone.replace(/\D/g, "");
+                const whatsappUrl = `https://wa.me/${phoneNumber}`;
+                window.open(whatsappUrl, "_blank");
+              }
+            }}
+            patientPhone={p.phone}
           />
         </Box>
       ))}

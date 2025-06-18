@@ -11,12 +11,15 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import FolderSharedIcon from "@mui/icons-material/FolderShared";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 
 export default function PatientActionsMenu({
   onDelete,
   onViewStudies,
   onAssignOperation,
   onViewMedCard,
+  onWriteToPatient,
+  patientPhone,
 }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -40,6 +43,10 @@ export default function PatientActionsMenu({
     handleClose();
     if (onViewMedCard) onViewMedCard();
   };
+  const handleWriteToPatient = () => {
+    handleClose();
+    if (onWriteToPatient) onWriteToPatient();
+  };
 
   return (
     <>
@@ -47,6 +54,12 @@ export default function PatientActionsMenu({
         <MoreVertIcon />
       </IconButton>
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+        <MenuItem onClick={handleWriteToPatient} disabled={!patientPhone}>
+          <ListItemIcon>
+            <WhatsAppIcon fontSize="small" sx={{ color: "#25D366" }} />
+          </ListItemIcon>
+          <ListItemText>Написать пациенту</ListItemText>
+        </MenuItem>
         <MenuItem onClick={handleViewStudies}>
           <ListItemIcon>
             <AssignmentIcon fontSize="small" />

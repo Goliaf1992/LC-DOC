@@ -23,6 +23,12 @@ export default function CalendarBlock({ date, setDate, calendarStats }) {
             border: "none",
             color: "#fff",
           },
+          "& .react-calendar__navigation button": { color: "#23272e" },
+          "& .react-calendar__navigation__label": {
+            color: "#23272e",
+            fontWeight: 700,
+          },
+          "& .react-calendar__navigation__arrow": { color: "#23272e" },
           "& .react-calendar__tile--active": {
             background: "#a5c8f7",
             color: "#23272e",
@@ -37,15 +43,12 @@ export default function CalendarBlock({ date, setDate, calendarStats }) {
             background: "#b7d6f8",
             color: "#23272e",
           },
-          "& .react-calendar__navigation button": { color: "#fff" },
         }}
       >
         <Calendar
           value={date}
           onChange={setDate}
           minDetail="month"
-          prevLabel={null}
-          nextLabel={null}
           showNeighboringMonth={false}
           tileClassName={({ date: d }) =>
             d.getDate() === 18 && d.getMonth() === 2 && d.getFullYear() === 2025
