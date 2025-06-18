@@ -7,11 +7,19 @@ import {
   DialogActions,
   Box,
 } from "@mui/material";
-import { ManualPatientForm } from "./index";
+import { ManualPatientForm, SelectPatientFromList } from "./index";
 
-export default function AddPatientButton({ onManual, onExcel }) {
+export default function AddPatientButton({
+  onManual,
+  onExcel,
+  onSelectFromList,
+  patients,
+  selectedDate,
+  showSelectFromList,
+}) {
   const [open, setOpen] = React.useState(false);
   const [manualOpen, setManualOpen] = React.useState(false);
+  const [selectFromListOpen, setSelectFromListOpen] = React.useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -20,15 +28,27 @@ export default function AddPatientButton({ onManual, onExcel }) {
     setOpen(false);
     setManualOpen(true);
   };
+
   const handleExcel = () => {
     setOpen(false);
     if (onExcel) onExcel();
+  };
+
+  const handleSelectFromList = () => {
+    setOpen(false);
+    setSelectFromListOpen(true);
   };
 
   const handleManualClose = () => setManualOpen(false);
   const handleManualSave = (data) => {
     if (onManual) onManual(data);
     setManualOpen(false);
+  };
+
+  const handleSelectFromListClose = () => setSelectFromListOpen(false);
+  const handleSelectFromListAdd = (patient, date) => {
+    if (onSelectFromList) onSelectFromList(patient, date);
+    setSelectFromListOpen(false);
   };
 
   return (
@@ -59,6 +79,15 @@ export default function AddPatientButton({ onManual, onExcel }) {
             >
               Загрузить Excel-файл
             </Button>
+            {showSelectFromList && (
+              <Button
+                variant="outlined"
+                onClick={handleSelectFromList}
+                sx={{ borderRadius: 2, fontWeight: 600 }}
+              >
+                Добавить из моих пациентов
+              </Button>
+            )}
           </Box>
         </DialogContent>
         <DialogActions>
@@ -71,6 +100,13 @@ export default function AddPatientButton({ onManual, onExcel }) {
         open={manualOpen}
         onClose={handleManualClose}
         onSave={handleManualSave}
+      />
+      <SelectPatientFromList
+        open={selectFromListOpen}
+        onClose={handleSelectFromListClose}
+        onAddPatient={handleSelectFromListAdd}
+        patients={patients}
+        selectedDate={selectedDate}
       />
     </Box>
   );

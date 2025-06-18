@@ -307,6 +307,36 @@ export default function App() {
     }
   };
 
+  // Добавить пациента в расписание из списка
+  const handleAddPatientToSchedule = (patient, scheduleDate) => {
+    const key = `${scheduleDate.getFullYear()}-${String(
+      scheduleDate.getMonth() + 1
+    ).padStart(2, "0")}-${String(scheduleDate.getDate()).padStart(2, "0")}`;
+
+    // Проверяем, не добавлен ли уже пациент на эту дату
+    const existingPatient = schedules[key]?.find(
+      (item) => item.name === patient.name
+    );
+    if (existingPatient) {
+      alert(`Пациент ${patient.name} уже добавлен в расписание на эту дату`);
+      return;
+    }
+
+    // Добавляем пациента в расписание с временем по умолчанию
+    const newScheduleItem = {
+      name: patient.name,
+      time: "09:00", // время по умолчанию
+      phone: patient.phone,
+    };
+
+    setSchedules((prev) => ({
+      ...prev,
+      [key]: [...(prev[key] || []), newScheduleItem],
+    }));
+
+    console.log(`Пациент ${patient.name} добавлен в расписание на ${key}`);
+  };
+
   // Добавление пациента
   const handleAddPatient = (patient) => {
     setPatients((prev) => [
@@ -366,6 +396,7 @@ export default function App() {
                   FormatBadge={FormatBadge}
                   onAddPatient={handleAddPatient}
                   onDeletePatient={handleDeletePatient}
+                  onAddPatientToSchedule={handleAddPatientToSchedule}
                 />
               )}
               {selectedFilter === "calendar" && (
@@ -376,6 +407,8 @@ export default function App() {
                   onCancelOperation={handleCancelOperation}
                   onChangeOperationTime={handleChangeOperationTime}
                   onWriteToPatient={handleWriteToPatientFromCalendar}
+                  onAddPatientToSchedule={handleAddPatientToSchedule}
+                  patients={patients}
                 />
               )}
               {selectedFilter === "orders" && (

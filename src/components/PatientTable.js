@@ -8,10 +8,17 @@ export default function PatientTable({
   cardVariants,
   onAddPatient,
   onDeletePatient,
+  onAddPatientToSchedule,
 }) {
   return (
     <Paper elevation={2} sx={{ p: 3, borderRadius: 4 }}>
-      <AddPatientButton onManual={onAddPatient} />
+      <AddPatientButton
+        onManual={onAddPatient}
+        onSelectFromList={onAddPatientToSchedule}
+        patients={patients}
+        selectedDate={new Date()}
+        showSelectFromList={false}
+      />
       <Box
         sx={{
           display: "flex",

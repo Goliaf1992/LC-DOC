@@ -24,6 +24,8 @@ export default function OperationSchedule({
   onCancelOperation,
   onChangeOperationTime,
   onWriteToPatient,
+  onAddPatientToSchedule,
+  patients,
 }) {
   const [changeTimeFormOpen, setChangeTimeFormOpen] = React.useState(false);
   const [selectedPatient, setSelectedPatient] = React.useState(null);
@@ -95,7 +97,12 @@ export default function OperationSchedule({
           <Typography variant="h6" fontWeight={700}>
             Расписание на {date.toLocaleDateString("ru-RU")}
           </Typography>
-          <AddPatientButton />
+          <AddPatientButton
+            onSelectFromList={onAddPatientToSchedule}
+            patients={patients}
+            selectedDate={date}
+            showSelectFromList={true}
+          />
         </Box>
         <Divider sx={{ mb: 2 }} />
         <Table size="small">
