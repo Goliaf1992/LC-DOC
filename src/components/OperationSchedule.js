@@ -25,6 +25,7 @@ export default function OperationSchedule({
   onChangeOperationTime,
   onWriteToPatient,
   onAddPatientToSchedule,
+  onAddPatientToCalendar,
   patients,
 }) {
   const [changeTimeFormOpen, setChangeTimeFormOpen] = React.useState(false);
@@ -99,6 +100,7 @@ export default function OperationSchedule({
           </Typography>
           <AddPatientButton
             onSelectFromList={onAddPatientToSchedule}
+            onManual={onAddPatientToCalendar}
             patients={patients}
             selectedDate={date}
             showSelectFromList={true}

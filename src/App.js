@@ -353,6 +353,41 @@ export default function App() {
     ]);
   };
 
+  // Добавление пациента в календарь с проверкой существования
+  const handleAddPatientToCalendar = (patient) => {
+    const fullName = `${patient.firstName} ${patient.lastName}`;
+
+    // Проверяем, существует ли пациент в глобальном списке
+    const existingPatient = patients.find((p) => p.name === fullName);
+
+    if (!existingPatient) {
+      // Если пациента нет, добавляем в глобальный список
+      setPatients((prev) => [
+        ...prev,
+        {
+          name: fullName,
+          date: "-",
+          time: "-",
+          format: "-",
+          avatar: "https://randomuser.me/api/portraits/lego/1.jpg",
+          phone: patient.phone || "+7 (999) 000-00-00",
+          ...patient,
+        },
+      ]);
+
+      // Показываем алерт о новом пациенте
+      alert(`Новый пациент ${fullName} добавлен!`);
+    }
+
+    // Добавляем пациента в расписание на текущую дату
+    const patientForSchedule = existingPatient || {
+      name: fullName,
+      phone: patient.phone || "+7 (999) 000-00-00",
+    };
+
+    handleAddPatientToSchedule(patientForSchedule, date);
+  };
+
   // Удаление пациента
   const handleDeletePatient = (patient) => {
     setPatients((prev) => prev.filter((p) => p.name !== patient.name));
@@ -408,6 +443,7 @@ export default function App() {
                   onChangeOperationTime={handleChangeOperationTime}
                   onWriteToPatient={handleWriteToPatientFromCalendar}
                   onAddPatientToSchedule={handleAddPatientToSchedule}
+                  onAddPatientToCalendar={handleAddPatientToCalendar}
                   patients={patients}
                 />
               )}

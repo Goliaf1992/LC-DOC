@@ -57,13 +57,6 @@ export default function CalendarBlock({ date, setDate, calendarStats }) {
           }
         />
       </Box>
-      <Typography variant="body2">Онлайн: {calendarStats.online}</Typography>
-      <Typography variant="body2">
-        В клинике: {calendarStats.inClinic}
-      </Typography>
-      <Typography variant="body2">
-        На дому: {calendarStats.homeVisits}
-      </Typography>
     </Paper>
   );
 }
