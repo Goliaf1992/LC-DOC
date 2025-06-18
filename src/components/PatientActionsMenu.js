@@ -12,6 +12,7 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import FolderSharedIcon from "@mui/icons-material/FolderShared";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import ScienceIcon from "@mui/icons-material/Science";
 
 export default function PatientActionsMenu({
   onDelete,
@@ -19,6 +20,7 @@ export default function PatientActionsMenu({
   onAssignOperation,
   onViewMedCard,
   onWriteToPatient,
+  onAssignAnalysis,
   patientPhone,
 }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -42,6 +44,10 @@ export default function PatientActionsMenu({
   const handleViewMedCard = () => {
     handleClose();
     if (onViewMedCard) onViewMedCard();
+  };
+  const handleAssignAnalysis = () => {
+    handleClose();
+    if (onAssignAnalysis) onAssignAnalysis();
   };
   const handleWriteToPatient = () => {
     handleClose();
@@ -71,6 +77,12 @@ export default function PatientActionsMenu({
             <EventAvailableIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText>Назначить операцию</ListItemText>
+        </MenuItem>
+        <MenuItem onClick={handleAssignAnalysis}>
+          <ListItemIcon>
+            <ScienceIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText>Назначить анализ</ListItemText>
         </MenuItem>
         <MenuItem onClick={handleViewMedCard}>
           <ListItemIcon>
