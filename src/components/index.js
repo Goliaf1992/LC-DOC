@@ -16,3 +16,4 @@ export { default as StatsSparkline } from "./StatsSparkline";
 export { default as CalendarPatientActionsMenu } from "./CalendarPatientActionsMenu";
 export { default as ChangeOperationTimeForm } from "./ChangeOperationTimeForm";
 export { default as SelectPatientFromList } from "./SelectPatientFromList";
+export { default as Logo } from "./Logo";

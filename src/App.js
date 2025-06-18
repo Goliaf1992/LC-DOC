@@ -28,6 +28,7 @@ import HelpIcon from "@mui/icons-material/Help";
 const menuItems = [
   { text: "Дашборд", icon: <DashboardIcon /> },
   { text: "Приёмы", icon: <EventIcon /> },
+  { text: "Мои курсы", icon: <EventIcon /> },
   { text: "Чаты", icon: <ChatIcon /> },
   { text: "Аналитика", icon: <BarChartIcon /> },
   { text: "Платежи", icon: <PaymentIcon /> },

@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import { Logo } from "./index";
 
 const drawerWidth = 260;
 
@@ -37,10 +38,24 @@ export default function Sidebar({ menuItems }) {
         },
       }}
     >
-      <Box sx={{ p: 3, pb: 1 }}>
-        <Typography variant="h6" sx={{ fontWeight: 700, mb: 2 }}>
-          Picasso Lab
-        </Typography>
+      <Box sx={{ p: 3, pb: 1}}>
+        <Box sx={{ display: "flex", alignItems: "center", mb: 3, gap: 2 }}>
+          <Logo width={40} height={39} sx={{ mr: 4 }} />
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Typography
+              variant="h6"
+              sx={{ fontWeight: 700, lineHeight: 1.2, mb: 0.5 }}
+            >
+              ПИКАССО
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{ fontWeight: 500, color: "#a5c8f7", lineHeight: 1.2 }}
+            >
+              ЛИЧНЫЙ КАБИНЕТ
+            </Typography>
+          </Box>
+        </Box>
         <List>
           {menuItems.map((item, idx) => (
             <ListItem
