@@ -1,4 +1,4 @@
-# Medly Dashboard Prototype
+# Dashboard Prototype
 
 Быстрый прототип дашборда врача на React + MUI.
 
